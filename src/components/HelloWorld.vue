@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h1>{{ response }}</h1>
   </div>
 </template>
 
@@ -9,6 +10,18 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  computed:{
+    response() {
+      const req = new XMLHttpRequest
+      let message = ''
+      req.open('GET', '/gomi', false)
+      req.onload = function () {
+        message = JSON.parse(req.responseText).msg
+      }
+      req.send(null)
+      return message
+    }
   }
 }
 </script>

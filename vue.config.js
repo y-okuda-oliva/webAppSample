@@ -1,5 +1,12 @@
 module.exports = {
-    devServer: {
-      disableHostCheck: true
+  devServer: {
+    disableHostCheck: true
+  },
+
+  pluginOptions: {
+    express: {
+      shouldServeApp: true,
+      serverDir: './srv'
     }
   }
+}
