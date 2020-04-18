@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/top.png">
+    <!-- <img alt="Vue logo" src="./assets/top.png"> -->
     <HelloWorld msg="まじごみ日記のクソアプリ"/>
+    <Map/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Map from './components/Map.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Map
   }
 }
 </script>
