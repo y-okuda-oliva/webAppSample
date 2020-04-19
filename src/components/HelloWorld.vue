@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }} {{ response }}</h1>
+    <img class="logo" src="../assets/top.png">
+    <span class="title">
+      {{ msg }} {{ response }}</span>
     <!-- <h1></h1> -->
   </div>
 </template>
@@ -42,4 +44,14 @@ li {
 a {
   color: #42b983;
 }
+.logo {
+  height:40px;
+  width:40px;
+}
+.title {
+  font-size:20px;
+}
+/* .hello {
+  height:30%;
+} */
 </style>
