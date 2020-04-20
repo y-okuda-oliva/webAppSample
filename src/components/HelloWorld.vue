@@ -1,31 +1,39 @@
 <template>
   <div class="hello">
-    <img class="logo" src="../assets/top.png">
-    <span class="title">
-      {{ msg }} {{ response }}</span>
+    <img class="logo" src="../assets/top.png" />
+    <span class="title"> {{ userName }} {{ msg }} </span>
+    <!-- <span> {{ response }}</span> -->
     <!-- <h1></h1> -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
+    msg: String,
   },
-  computed:{
-    response() {
-      const req = new XMLHttpRequest
-      let message = ''
-      req.open('GET', '/gomi', false)
-      req.onload = function () {
-        message = JSON.parse(req.responseText).msg
+  computed: {
+    // response() {
+    //   const req = new XMLHttpRequest();
+    //   let message = "";
+    //   req.open("GET", "/gomi", false);
+    //   req.onload = function() {
+    //     message = JSON.parse(req.responseText).msg;
+    //   };
+    //   req.send(null);
+    //   return message;
+    // },
+    userName() {
+      if (window.localStorage) {
+        if (localStorage.getItem("userName")) {
+          return localStorage.getItem("userName") + "の";
+        }
       }
-      req.send(null)
-      return message
-    }
-  }
-}
+      return "";
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -45,11 +53,11 @@ a {
   color: #42b983;
 }
 .logo {
-  height:40px;
-  width:40px;
+  height: 40px;
+  /* width: 40px; */
 }
 .title {
-  font-size:20px;
+  font-size: 20px;
 }
 /* .hello {
   height:30%;

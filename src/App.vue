@@ -1,23 +1,54 @@
 <template>
   <div id="app">
+    <div id="overlay" v-show="showUserInit">
+      <div id="dialog">
+        <p>ユーザ登録</p>
+        <input class="userinit" v-model="userName" placeholder="ユーザ名を入力してください" />
+        <button class="" @click="userIns">登録</button>
+      </div>
+    </div>
     <!-- <img alt="Vue logo" src="./assets/top.png"> -->
-    <HelloWorld msg="まじごみ日記のクソアプリ"/>
+    <HelloWorld :msg="title" />
     <!-- <h1>まじごみ日記のクソアプリ</h1> -->
-    <Map/>
+    <Map />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Map from './components/Map.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import Map from "./components/Map.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HelloWorld,
-    Map
-  }
-}
+    Map,
+  },
+  data() {
+    return {
+      userName: "",
+      showUserInit: true,
+      title:"パチスロ情報サイト"
+    };
+  },
+  mounted() {
+    if (window.localStorage) {
+      console.log(localStorage.getItem("userName"));
+      if (localStorage.getItem("userName")) {
+        this.showUserInit = false;
+      }
+    }
+  },
+  methods: {
+    userIns() {
+      if (this.userName) {
+        window.localStorage.setItem("userName", this.userName);
+        this.showUserInit = false;
+        this.title = this.userName + " の" + this.title;
+      }
+    },
+  },
+};
 </script>
 
 <style>
@@ -29,5 +60,36 @@ export default {
   /* color: #2c3e50; */
   /* margin-top: 60px; */
   /* height:10Px; */
+}
+#overlay {
+  z-index: 5000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#dialog {
+  position: absolute;
+  z-index: 5100;
+  width: 60%;
+  height: 100px;
+  border-radius:10px;
+  /* top: 0px; */
+  /* left: 0px; */
+  /* right:0px; */
+  top: 100px;
+  padding: 1em;
+  background: #fff;
+}
+.userinit {
+  width: 70%;
+  /* position: absolute; */
+  top:10px;
+  margin-right:10px;
 }
 </style>
