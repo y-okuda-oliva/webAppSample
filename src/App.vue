@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <div id="overlay" v-show="showUserInit">
+    <div id="overlay" v-show="initMode">
       <div id="dialog">
         <p>ユーザ登録</p>
-        <input class="userinit" v-model="userName" placeholder="ユーザ名を入力してください" />
+        <input
+          class="userinit"
+          v-model="userName"
+          placeholder="ユーザ名を入力してください"
+        />
         <button class="" @click="userIns">登録</button>
       </div>
     </div>
@@ -27,24 +31,42 @@ export default {
   data() {
     return {
       userName: "",
-      showUserInit: true,
-      title:"パチスロ情報サイト"
+      title: "パチスロ情報サイト",
     };
   },
   mounted() {
     if (window.localStorage) {
-      console.log(localStorage.getItem("userName"));
       if (localStorage.getItem("userName")) {
-        this.showUserInit = false;
+        this.$store.state.initMode = false;
+        if (localStorage.getItem("lat")) {
+          this.$store.state.initJitaku = false;
+        }
+        this.$store.state.name = localStorage.getItem("userName");
+      }
+      if (localStorage.getItem("lat")) {
+        this.$store.state.jitakuLatLng = [
+          parseFloat(localStorage.getItem("lat")),
+          parseFloat(localStorage.getItem("lng")),
+        ];
+        this.$store.state.center = [
+          parseFloat(localStorage.getItem("lat")),
+          parseFloat(localStorage.getItem("lng")),
+        ];
       }
     }
+  },
+  computed: {
+    initMode() {
+      return this.$store.state.initMode;
+    },
   },
   methods: {
     userIns() {
       if (this.userName) {
         window.localStorage.setItem("userName", this.userName);
-        this.showUserInit = false;
-        this.title = this.userName + " の" + this.title;
+        this.$store.state.initMode = false;
+        this.$store.state.name = this.userName;
+        this.userName = "";
       }
     },
   },
@@ -78,7 +100,7 @@ export default {
   z-index: 5100;
   width: 60%;
   height: 100px;
-  border-radius:10px;
+  border-radius: 10px;
   /* top: 0px; */
   /* left: 0px; */
   /* right:0px; */
@@ -89,7 +111,7 @@ export default {
 .userinit {
   width: 70%;
   /* position: absolute; */
-  top:10px;
-  margin-right:10px;
+  top: 10px;
+  margin-right: 10px;
 }
 </style>

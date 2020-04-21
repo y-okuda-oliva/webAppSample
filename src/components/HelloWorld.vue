@@ -1,7 +1,14 @@
 <template>
   <div class="hello">
-    <img class="logo" src="../assets/top.png" />
-    <span class="title"> {{ userName }} {{ msg }} </span>
+    <div v-if="!initMode && !initJitaku">
+      <img class="logo" src="../assets/top.png" />
+      <span class="title"> {{ userName }}</span>
+      <button @click="clearStrage">クリア</button>
+    </div>
+    <div v-if="initJitaku">
+      <span class="title"> まずは自宅を登録！！</span>
+    </div>
+    <!-- <span>{{ jitakuLatLng}}</span> -->
     <!-- <span> {{ response }}</span> -->
     <!-- <h1></h1> -->
   </div>
@@ -25,12 +32,27 @@ export default {
     //   return message;
     // },
     userName() {
-      if (window.localStorage) {
-        if (localStorage.getItem("userName")) {
-          return localStorage.getItem("userName") + "の";
-        }
+      if (this.$store.state.name != "") {
+        return this.$store.state.name + "の" + "パチスロ情報";
       }
       return "";
+    },
+    initMode() {
+      return this.$store.state.initMode;
+    },
+    initJitaku() {
+      return this.$store.state.initJitaku;
+    },
+    jitakuLatLng() {
+      return this.$store.state.jitakuLatLng;
+    },
+  },
+  methods: {
+    clearStrage() {
+      localStorage.clear();
+      this.$store.state.initMode = true;
+      this.$store.state.initJitaku = true;
+      this.$store.state.name = "";
     },
   },
 };
@@ -53,7 +75,7 @@ a {
   color: #42b983;
 }
 .logo {
-  height: 40px;
+  height: 30px;
   /* width: 40px; */
 }
 .title {

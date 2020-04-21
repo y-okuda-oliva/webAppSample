@@ -16,8 +16,22 @@ export default (app) => {
   app.set('port', port)
   app.use(express.json());
   
-  app.get('/gomi', (req, res) => {
-    res.json({msg: 'morimori'});
+  app.get('/parlerlist', (req, res) => {
+    res.json([{
+      name: "スロット専門店エクサ",
+      url: "https://www.p-world.co.jp/tokyo/ekusa.htm",
+      latLng: [35.7765, 139.634],
+    },
+    {
+      name: "コンサートホール成増スロット館",
+      url: "https://www.p-world.co.jp/tokyo/concert-narimasu2.htm",
+      latLng: [35.777, 139.633],
+    },
+    {
+      name: "ミリオン成増７号店",
+      url: "https://www.p-world.co.jp/tokyo/m7.htm",
+      latLng: [35.7775, 139.631],
+    }]);
     // console.log(test.testMethod("gorigori"));
   //   client.query(query)
   // .then(res => console.log(res.rows[0]))
